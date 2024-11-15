@@ -6,11 +6,33 @@
 /*   By: ltheveni <ltheveni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:32:55 by ltheveni          #+#    #+#             */
-/*   Updated: 2024/11/15 19:10:59 by ltheveni         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:41:16 by ltheveni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*p;
+
+	p = (unsigned char *)s;
+	while (n--)
+		*p++ = 0;
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*result;
+
+	if (count != 0 && size > 65535 / count)
+		return (NULL);
+	result = (void *)malloc(count * size);
+	if (!result)
+		return (NULL);
+	ft_bzero(result, count * size);
+	return (result);
+}
 
 char	*ft_strchr(char const *s, int c)
 {

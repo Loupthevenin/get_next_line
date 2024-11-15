@@ -6,7 +6,7 @@
 /*   By: ltheveni <ltheveni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:31:12 by ltheveni          #+#    #+#             */
-/*   Updated: 2024/11/15 18:53:32 by ltheveni         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:43:24 by ltheveni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t count, size_t size);
+char	*ft_strchr(char const *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(char const *s);
 char	*get_next_line(int fd);
