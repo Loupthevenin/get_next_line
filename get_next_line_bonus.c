@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltheveni <ltheveni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:30:34 by ltheveni          #+#    #+#             */
-/*   Updated: 2024/11/18 19:06:08 by ltheveni         ###   ########.fr       */
+/*   Updated: 2024/11/18 09:01:49 by ltheveni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "get_next_line_bonus.h"
 
 char	*ft_join(char *buf, char *buffer)
 {
@@ -43,7 +41,7 @@ char	*ft_read(int fd, char *buf)
 			free(buf);
 			return (NULL);
 		}
-		buffer[nb_read] = 0;
+		buffer[nb_read] = '\0';
 		buf = ft_join(buf, buffer);
 		if (ft_strchr(buffer, '\n'))
 			break ;
@@ -104,15 +102,19 @@ char	*ft_next(char *buf)
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
+	static char	*buf[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	buf = ft_read(fd, buf);
-	if (!buf)
+	buf[fd] = ft_read(fd, buf[fd]);
+	if (!buf[fd])
+	{
+		free(buf[fd]);
+		buf[fd] = NULL;
 		return (NULL);
-	line = ft_line(buf);
-	buf = ft_next(buf);
+	}
+	line = ft_line(buf[fd]);
+	buf[fd] = ft_next(buf[fd]);
 	return (line);
 }
